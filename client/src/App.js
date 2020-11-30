@@ -17,9 +17,12 @@ function App() {
         try {
             // const response = await axios.post('/api/auth/register', {email, password});
             const response = await axios.post('/api/auth/register', {email: 'test@mail.ru', password: '123123'});
-            console.log('data', response);
+            // const response = await axios.post('/api/auth/test');
+
+            console.log(response);
+
         } catch (e) {
-            console.log('Ошибка: ', e.message);
+            console.log('Ошибка: ', e);
         }
     };
 

@@ -9,38 +9,37 @@ const router = Router();
 //  /api/auth/ + register
 router.post(
     '/register',
-    // [
-    //     check('email', 'Некорректный email').isEmail(),
-    //     check('password', 'Минимальная длина пароля 6 символов').isLength({min: 6})
-    // ],
+    [
+        check('email', 'Некорректный email').isEmail(),
+        check('password', 'Минимальная длина пароля 6 символов').isLength({min: 6})
+    ],
     async (req, res) => {
         try {
-            // const errors = validationResult(req);
-            //
-            // if (!errors.isEmpty()) {
-            //     return res.status(400).json({
-            //         errors: errors.array(),
-            //         message: "Некорректные данные при регистрации"
-            //     })
-            // }
-            //
-            // const {email, password} = req.body;
-            //
-            // const candidate = await User.findOne({email: email});
-            //
-            // if (candidate) {
-            //     return res.status(400).json({message: 'Такой пользователь уже существует'})
-            // }
+            const errors = validationResult(req);
+
+            if (!errors.isEmpty()) {
+                return res.status(400).json({
+                    errors: errors.array(),
+                    message: "Некорректные данные при регистрации"
+                })
+            }
+
+            const {email, password} = req.body;
+
+            const candidate = await User.findOne({email: email});
+
+            if (candidate) {
+                return res.status(400).json({message: 'Такой пользователь уже существует'})
+            }
             //
             // const hashedPassword = await bcrypt.hash(password, 12);
             // const user = new User({email: email, password: hashedPassword});
             //
             // await user.save();
             //
-            // res.status(201).json({message: 'Пользователь создан'}
-            console.log('rea: ', req.body);
+            res.status(201).json({message: 'Пользователь создан'});
 
-            res.status(200).send('hello from post register');
+            // res.status(200).json({message: 'HELLO BROther'});
         } catch (e) {
             res.status(500).json({message: "Что то пошло не так, попробуйте снова"})
         }
