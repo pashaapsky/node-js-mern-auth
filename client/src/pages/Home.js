@@ -5,16 +5,10 @@ import {useAuth} from "../hooks/auth.hook";
 
 function Home(props) {
     const auth = useContext(AuthContext);
-    const {logout} = useAuth(AuthContext);
-    const history = useHistory();
 
     const logoutHandler = (event) => {
-      event.preventDefault();
-
-        console.log(auth.logout);
+        event.preventDefault();
         auth.logout();
-      // logout();
-      // history.push('/auth');
     };
 
     return (

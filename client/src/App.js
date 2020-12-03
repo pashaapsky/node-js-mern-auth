@@ -6,7 +6,6 @@ import {AuthContext} from './context/AuthContext'
 
 function App() {
     const {token, login, logout, userId} = useAuth();
-    console.log('token', token);
     let isAuthenticated = !!token;
     const routes = useRoutes(isAuthenticated);
 

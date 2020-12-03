@@ -1,11 +1,10 @@
-import React, {Fragment, useState, useContext} from 'react';
+import React, {useState, useContext} from 'react';
 import {useAxios} from "../hooks/axios.hook";
 import {AuthContext} from "../context/AuthContext";
 
 function Auth(props) {
     const auth = useContext(AuthContext);
     const {request, error, setError} = useAxios();
-    const [user, setUser] = useState(null);
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
 
