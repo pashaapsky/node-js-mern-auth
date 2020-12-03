@@ -1,8 +1,9 @@
-import React, {Fragment, useState, useEffect} from 'react';
-import axios from "axios";
+import React, {Fragment, useState, useContext} from 'react';
 import {useAxios} from "../hooks/axios.hook";
+import {AuthContext} from "../context/AuthContext";
 
 function Auth(props) {
+    const auth = useContext(AuthContext);
     const {request, error, setError} = useAxios();
     const [user, setUser] = useState(null);
     const [email, setEmail] = useState('');
@@ -12,26 +13,10 @@ function Auth(props) {
         event.preventDefault();
 
         try {
-            const response = await request('/api/auth/register', password, email);
-
-            console.log(response);
-        } catch (e) {
-            alert(e.message)
-        }
-    };
-
-    const test = async (event) => {
-        event.preventDefault();
-        try {
-            const response = await axios.post('/api/auth/test', {email, password})
-                .then(res => res.data)
-                .catch(error => {
-                    // обработка ошибок
-                    throw new Error(error.response.data.message);
-                })
+            const response = await request('/api/auth/register', password, email)
+                .then(res => alert(res.message))
             ;
 
-            console.log(response);
         } catch (e) {
             alert(e.message)
         }
@@ -43,7 +28,7 @@ function Auth(props) {
         try {
             const response = await request('/api/auth/login', password, email);
 
-            console.log(response);
+            auth.login(response.token, response.userId);
         } catch (e) {
             alert(e.message)
         }
